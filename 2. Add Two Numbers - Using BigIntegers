@@ -26,46 +26,35 @@ class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
     
         ListNode t1 = l1, t2 = l2;
-        int len1=0, len2=0;
+        int len1=0, len2=0, i=0;
         BigInteger num = new BigInteger("0");
-         BigInteger c = new BigInteger("0");
-        int i = 0;
+        BigInteger c = new BigInteger("0");
         while(t1 !=null || t2 !=null)
         {
-            if(t1 ==null)
-            {
-             
+            if(t1 == null)
+            {             
                c = BigInteger.valueOf(t2.val);
-               BigInteger d = new BigInteger("10");                        
-               d = d.pow(i); 
-               c= c.multiply(d);
-                num= num.add( c);
-                t2 = t2.next;
-                len2++;
+               t2 = t2.next;
+               len2++;
             }
             else if(t2 == null)
             {
                 c = BigInteger.valueOf(t1.val);
-               BigInteger d = new BigInteger("10");                        
-               d = d.pow(i); 
-               c= c.multiply(d);
-                num= num.add( c);
                 t1 = t1.next;
                 len1++;
             }
             else
             {
-               c = BigInteger.valueOf(t2.val+t1.val);
-               BigInteger d = new BigInteger("10");                        
-               d = d.pow(i); 
-               c= c.multiply(d);
-                num= num.add( c);
-            
+                c = BigInteger.valueOf(t2.val+t1.val);
                 t1 = t1.next;
                 t2 = t2.next;
                 len1++;
                 len2++;
             }
+            BigInteger d = new BigInteger("10");                        
+            d = d.pow(i); 
+            c= c.multiply(d);
+            num= num.add( c);
             i++;
              
         }
@@ -88,7 +77,7 @@ class Solution {
              int rem = (num.remainder(new BigInteger("10"))).intValue();
              num = num.divide(new BigInteger("10"));
              t1.val = rem;
-            t1 = t1.next;
+             t1 = t1.next;
             
         }
 
