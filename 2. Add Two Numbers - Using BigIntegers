@@ -1,0 +1,110 @@
+/*
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example:
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.
+
+*/
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+import java.math.*;
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    
+        ListNode t1 = l1, t2 = l2;
+        int len1=0, len2=0;
+        BigInteger num = new BigInteger("0");
+         BigInteger c = new BigInteger("0");
+        int i = 0;
+        while(t1 !=null || t2 !=null)
+        {
+            if(t1 ==null)
+            {
+             
+               c = BigInteger.valueOf(t2.val);
+               BigInteger d = new BigInteger("10");                        
+               d = d.pow(i); 
+               c= c.multiply(d);
+                num= num.add( c);
+                t2 = t2.next;
+                len2++;
+            }
+            else if(t2 == null)
+            {
+                c = BigInteger.valueOf(t1.val);
+               BigInteger d = new BigInteger("10");                        
+               d = d.pow(i); 
+               c= c.multiply(d);
+                num= num.add( c);
+                t1 = t1.next;
+                len1++;
+            }
+            else
+            {
+               c = BigInteger.valueOf(t2.val+t1.val);
+               BigInteger d = new BigInteger("10");                        
+               d = d.pow(i); 
+               c= c.multiply(d);
+                num= num.add( c);
+            
+                t1 = t1.next;
+                t2 = t2.next;
+                len1++;
+                len2++;
+            }
+            i++;
+             
+        }
+      
+        ListNode prev = null;
+        if(len1 >= len2)
+        {
+            t1 = l1;
+        }
+        else
+        {
+            t1 = l2;
+        }
+        
+    
+         while(t1 != null)
+        {
+            
+             prev = t1;
+             int rem = (num.remainder(new BigInteger("10"))).intValue();
+             num = num.divide(new BigInteger("10"));
+             t1.val = rem;
+            t1 = t1.next;
+            
+        }
+
+        if((num.intValue()) >0)
+        {
+            ListNode n1 =new ListNode(num.intValue());
+            prev.next =n1;
+        }
+      
+        if(len1 >= len2)
+        {
+            return l1;
+        }
+        else
+        {
+            return l2;
+        }
+    }
+}
